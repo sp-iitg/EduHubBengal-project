@@ -1,44 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  
-  --color-forest-dark: #0f1412;
-  --color-forest-deep: #161e1a;
-  --color-forest-mid: #25332c;
-  --color-forest-moss: #3a4d43;
-  --color-forest-sage: #5c7566;
-  --color-forest-lichen: #8fa899;
-  
-  --color-earth-sand: #dfd4c0;
-  --color-earth-clay: #bc987e;
-  --color-earth-cream: #faf8f5;
-  --color-earth-parchment: #f2ede4;
-  --color-earth-linen: #e5dec9;
+  --font-sans: "Inter", "Hind Siliguri", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-school-blue: #3b82f6;
+  --color-school-blue-dark: #1e3a8a;
+  --color-school-gold: #fbbf24;
+  --color-school-green: #10b981;
+  --color-school-green-dark: #059669;
+}
+
+/* Custom micro-styling for smooth animation transitions */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-forest-dark);
-  color: var(--color-earth-cream);
   font-family: var(--font-sans);
-  line-height: 1.6;
+  background-color: #0f172a;
+  color: #f1f5f9;
 }
 
-/* Custom premium scrollbar */
+/* Glass scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-forest-dark);
+  background: rgba(255, 255, 255, 0.02);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-forest-mid);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-forest-moss);
+  background: rgba(255, 255, 255, 0.3);
 }
+
+/* Map frame rendering */
+.map-container iframe {
+  filter: invert(0.9) hue-rotate(180deg) opacity(0.85);
+  border-radius: 16px;
+}
+

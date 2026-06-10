@@ -1,28 +1,33 @@
-export interface MaterialItem {
+export interface Notice {
   id: string;
-  title: string;
-  subject: "Physics" | "Chemistry" | "Mathematics";
-  filename: string;
-  originalname: string;
-  mimetype: string;
-  size: number;
-  uploadedAt: string;
+  notice: string; // The notice text
+  date: string;   // DD.MM.YYYY ratio/format or ISO
+  downloadUrl?: string; // Optional holiday list or other attachments
 }
 
-export interface Course {
+export interface AdmissionForm {
   id: string;
-  title: string;
-  subtitle: string;
-  subject: "Physics" | "Chemistry" | "Mathematics" | "Complete JEE";
-  level: "JEE Mains" | "JEE Advanced" | "Foundation";
-  duration: string;
-  faculty: string;
-  topics: string[];
-  description: string;
-  curriculumHighlight: string;
-  enrolledStudentsCount: number;
-  totalSeats: number;
+  studentName: string;
+  guardianName: string;
+  targetClass: string;
+  phone: string;
+  email: string;
+  previousSchool: string;
+  previousPercentage: string;
+  date: string;
+  status: 'Pending' | 'Approved' | 'Rejected';
 }
 
-export type AppView = "home" | "courses" | "materials" | "admin";
-export type SubjectFilter = "All" | "Physics" | "Chemistry" | "Mathematics";
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  date: string;
+}
+
+export interface WebhookConfig {
+  apiKey: string;
+}
