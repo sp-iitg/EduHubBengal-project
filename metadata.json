@@ -1,6 +1,0 @@
-{
-  "name": "EduHubBengal",
-  "description": "Premium JEE preparation platform with structured study materials, secure teacher uploads, and student-focused local testing.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
