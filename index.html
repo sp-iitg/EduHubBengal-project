@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduHubBengal — Mastering JEE, Guided by Logic</title>
+  <meta name="description" content="EduHubBengal is a premium JEE preparation platform offering structured, calm, and expert-guided study resources for Physics, Chemistry, and Mathematics." />
+  <meta name="keywords" content="JEE preparation, IIT JEE, JEE Mains, Physics Chemistry Maths, Bengal coaching" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              950: '#0b0f0b',
+              900: '#121612',
+              800: '#1a211a',
+              700: '#222d22',
+              600: '#2e3d2e',
+            },
+            slate: {
+              moss: '#8a9e8a',
+              stone: '#b0bfb0',
+              mist: '#d0dbd0',
+            },
+            stone: {
+              ivory: '#f0ede6',
+              warm: '#e8e4dc',
+              cream: '#f7f5f0',
+            },
+          },
+          fontFamily: {
+            serif: ['Merriweather', 'Georgia', 'serif'],
+            sans: ['Poppins', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ─── Base & Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #121612;
+      color: #d0dbd0;
+      font-family: 'Poppins', sans-serif;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ─── Custom Cursor ─── */
+    #cursor-outer {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(176, 191, 176, 0.45);
+      background: rgba(176, 191, 176, 0.06);
+      backdrop-filter: blur(2px);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.12s ease, width 0.25s ease, height 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      will-change: left, top;
+    }
+    #cursor-dot {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(208, 219, 208, 0.9);
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+    body:has(a:hover) #cursor-outer,
+    body:has(button:hover) #cursor-outer {
+      width: 52px; height: 52px;
+      background: rgba(176, 191, 176, 0.12);
+      border-color: rgba(176, 191, 176, 0.7);
+    }
+
+    /* ─── Navbar ─── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.25rem 2rem;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(18, 22, 18, 0.72);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      box-shadow: 0 1px 0 rgba(176, 191, 176, 0.08);
+    }
+
+    /* ─── Hero ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+    #hero-bg {
+      position: absolute;
+      inset: -6%;
+      background:
+        radial-gradient(ellipse 70% 55% at 60% 40%, rgba(46, 61, 46, 0.55) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 80% at 20% 70%, rgba(18, 22, 18, 0.8) 0%, transparent 60%),
+        linear-gradient(160deg, #0b0f0b 0%, #121612 40%, #1a211a 70%, #0f1410 100%);
+      will-change: transform;
+      transition: transform 0.08s linear;
+    }
+    /* Subtle forest texture overlay */
+    #hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(176,191,176,0.08) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 70%, rgba(176,191,176,0.06) 0%, transparent 100%),
+        radial-gradient(2px 2px at 50% 20%, rgba(176,191,176,0.05) 0%, transparent 100%);
+    }
+    /* Ambient light orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .orb-1 { width: 500px; height: 500px; background: #2e5e2e; top: -120px; right: -60px; }
+    .orb-2 { width: 380px; height: 380px; background: #1a3d1a; bottom: -80px; left: 5%; }
+    .orb-3 { width: 260px; height: 260px; background: #4a7a4a; top: 40%; left: 55%; opacity: 0.09; }
+
+    #hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 780px;
+      padding: 0 1.5rem;
+      will-change: transform;
+      transition: transform 0.12s linear;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(176, 191, 176, 0.6);
+      border: 1px solid rgba(176, 191, 176, 0.2);
+      padding: 0.4rem 1.1rem;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+    }
+    .hero-title {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.18;
+      color: #f0ede6;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(208, 219, 208, 0.75);
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(176, 191, 176, 0.75);
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto 2.8rem;
+    }
+    .cta-btn {
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: #121612;
+      background: #b0bfb0;
+      border: none;
+      padding: 0.9rem 2.4rem;
+      border-radius: 4px;
+      cursor: none;
+      text-decoration: none;
+      transition: background 0.3s ease, padding 0.35s cubic-bezier(0.25,0.46,0.45,0.94), letter-spacing 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cta-btn:hover {
+      background: #d0dbd0;
+      padding: 0.9rem 3rem;
+      letter-spacing: 0.1em;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    }
+    .cta-btn-ghost {
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(176, 191, 176, 0.7);
+      background: transparent;
+      border: 1px solid rgba(176, 191, 176, 0.25);
+      padding: 0.9rem 2.4rem;
+      border-radius: 4px;
+      cursor: none;
+      text-decoration: none;
+      transition: color 0.3s, border-color 0.3s, padding 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+      margin-left: 1rem;
+    }
+    .cta-btn-ghost:hover {
+      color: #d0dbd0;
+      border-color: rgba(176,191,176,0.55);
+      padding: 0.9rem 3rem;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.38;
+    }
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #b0bfb0;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, #b0bfb0, transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 0.8; transform: scaleY(1); }
+    }
+
+    /* ─── Section Shared ─── */
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(138, 158, 138, 0.6);
+      margin-bottom: 1.2rem;
+    }
+    .section-title {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: #f0ede6;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(176, 191, 176, 0.65);
+      line-height: 1.85;
+      max-width: 500px;
+    }
+
+    /* ─── Subject Cards ─── */
+    .subject-card {
+      background: rgba(26, 33, 26, 0.6);
+      border: 1px solid rgba(176, 191, 176, 0.08);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .subject-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(176,191,176,0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .subject-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(176,191,176,0.14);
+      border-color: rgba(176, 191, 176, 0.16);
+      background: rgba(34, 45, 34, 0.75);
+    }
+    .subject-card:hover::before { opacity: 1; }
+    .subject-icon {
+      width: 52px; height: 52px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.6rem;
+      font-size: 1.5rem;
+    }
+    .subject-card-title {
+      font-family: 'Merriweather', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #f0ede6;
+      margin-bottom: 0.8rem;
+    }
+    .subject-card-desc {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: rgba(176,191,176,0.6);
+      line-height: 1.75;
+      margin-bottom: 1.8rem;
+    }
+    .card-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(176, 191, 176, 0.55);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s, gap 0.3s;
+    }
+    .subject-card:hover .card-link { color: #d0dbd0; gap: 0.8rem; }
+
+    /* ─── Divider ─── */
+    .divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, rgba(176,191,176,0.3), transparent);
+      margin: 1.5rem 0;
+    }
+
+    /* ─── Stats Row ─── */
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: 'Merriweather', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #f0ede6;
+      letter-spacing: -0.03em;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(138, 158, 138, 0.6);
+      margin-top: 0.3rem;
+    }
+
+    /* ─── Philosophy Section ─── */
+    .philosophy-quote {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(1.3rem, 2.8vw, 2rem);
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(208, 219, 208, 0.75);
+      line-height: 1.65;
+      border-left: 2px solid rgba(176, 191, 176, 0.2);
+      padding-left: 2rem;
+    }
+
+    /* ─── Scroll Reveal ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.75s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.32s; }
+    .reveal-delay-4 { transition-delay: 0.44s; }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid rgba(176,191,176,0.07);
+      background: #0b0f0b;
+    }
+
+    /* ─── Nav Link ─── */
+    .nav-link {
+      position: relative;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: rgba(176, 191, 176, 0.65);
+      text-decoration: none;
+      transition: color 0.3s;
+      padding-bottom: 2px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: rgba(208, 219, 208, 0.6);
+      transition: width 0.35s ease;
+    }
+    .nav-link:hover { color: #d0dbd0; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #d0dbd0; }
+    .nav-link.active::after { width: 100%; }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-outer" aria-hidden="true"></div>
+  <div id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════ NAVBAR ═══ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" id="nav-logo" class="flex items-center gap-3 text-decoration-none" style="text-decoration:none;">
+        <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#2e3d2e,#4a6a4a);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Merriweather',serif;font-size:0.85rem;font-weight:700;color:#d0dbd0;">E</span>
+        </div>
+        <div>
+          <span style="font-family:'Merriweather',serif;font-size:1rem;font-weight:700;color:#f0ede6;display:block;line-height:1;">EduHubBengal</span>
+          <span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(138,158,138,0.55);font-weight:400;">JEE Preparation</span>
+        </div>
+      </a>
+      <!-- Nav Links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="nav-link active" id="nav-home">Home</a>
+        <a href="material.html" class="nav-link" id="nav-material">Study Material</a>
+        <a href="contact.html" class="nav-link" id="nav-contact">Contact</a>
+      </div>
+      <!-- CTA -->
+      <a href="material.html" class="hidden md:inline-block cta-btn" id="nav-cta" style="padding:0.6rem 1.5rem;font-size:0.78rem;">Begin Studying</a>
+      <!-- Mobile toggle -->
+      <button id="mobile-menu-btn" aria-label="Open menu" class="md:hidden flex flex-col gap-1.5 p-2" style="background:none;border:none;cursor:none;">
+        <span class="block w-6 h-px bg-stone-400 transition-all"></span>
+        <span class="block w-4 h-px bg-stone-400 transition-all"></span>
+        <span class="block w-6 h-px bg-stone-400 transition-all"></span>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden px-6 pt-4 pb-6 flex flex-col gap-4">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="material.html" class="nav-link">Study Material</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="material.html" class="cta-btn mt-2 text-center" style="padding:0.7rem 1.8rem;">Begin Studying</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ HERO ═══ -->
+  <section id="hero" role="banner">
+    <div id="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <div id="hero-content">
+      <div class="hero-eyebrow reveal">Premium JEE Preparation — West Bengal</div>
+      <h1 class="hero-title reveal reveal-delay-1">
+        Mastering JEE,<br /><em>Guided by Logic.</em>
+      </h1>
+      <p class="hero-subtitle reveal reveal-delay-2">
+        A calm, structured, and premium learning environment for Physics, Chemistry, and Mathematics — built for students who think deeply.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 reveal reveal-delay-3">
+        <a href="material.html" class="cta-btn" id="hero-cta-primary">Explore Study Materials</a>
+        <a href="contact.html" class="cta-btn-ghost" id="hero-cta-secondary">Enroll Now</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ STATS ROW ═══ -->
+  <section class="py-20" style="background:rgba(11,15,11,0.6);border-top:1px solid rgba(176,191,176,0.06);border-bottom:1px solid rgba(176,191,176,0.06);">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div class="stat-item reveal">
+          <div class="stat-number">1,200+</div>
+          <div class="stat-label">Students Enrolled</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-1">
+          <div class="stat-number">340+</div>
+          <div class="stat-label">Study Resources</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Core Subjects</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-3">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Student Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ SUBJECTS ═══ -->
+  <section class="py-28" id="subjects">
+    <div class="max-w-6xl mx-auto px-6">
+      <!-- Header -->
+      <div class="mb-16 max-w-xl reveal">
+        <div class="section-label">Our Curriculum</div>
+        <h2 class="section-title mb-4">Three Pillars of JEE Excellence</h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">Each subject is approached with rigorous depth, conceptual clarity, and a calm, systematic method — no shortcuts, no noise.</p>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- Physics -->
+        <div class="subject-card reveal reveal-delay-1" id="card-physics">
+          <div class="subject-icon" style="background:rgba(46,94,46,0.25);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(176,191,176,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
+              <line x1="4.22" y1="4.22" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.78" y2="19.78"/>
+              <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.78" y2="4.22"/>
+            </svg>
+          </div>
+          <h3 class="subject-card-title">Physics</h3>
+          <p class="subject-card-desc">From Newtonian mechanics and electrodynamics to optics and modern physics — we unravel complexity into elegant principles you can actually visualize.</p>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.6rem;">
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Mechanics</span>
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Electromagnetism</span>
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Optics</span>
+          </div>
+          <a href="material.html#physics" class="card-link">
+            Explore Physics <span>→</span>
+          </a>
+        </div>
+
+        <!-- Chemistry -->
+        <div class="subject-card reveal reveal-delay-2" id="card-chemistry">
+          <div class="subject-icon" style="background:rgba(30,60,46,0.3);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(176,191,176,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3h6v11l3.5 6.5a1 1 0 01-.86 1.5H6.36a1 1 0 01-.86-1.5L9 14V3z"/>
+              <line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="11" x2="13" y2="11"/>
+            </svg>
+          </div>
+          <h3 class="subject-card-title">Chemistry</h3>
+          <p class="subject-card-desc">Physical, Organic, and Inorganic Chemistry demystified. We cultivate an intuitive understanding of reactions, mechanisms, and periodic trends that persist in exams.</p>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.6rem;">
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Organic</span>
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Inorganic</span>
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Physical</span>
+          </div>
+          <a href="material.html#chemistry" class="card-link">
+            Explore Chemistry <span>→</span>
+          </a>
+        </div>
+
+        <!-- Mathematics -->
+        <div class="subject-card reveal reveal-delay-3" id="card-mathematics">
+          <div class="subject-icon" style="background:rgba(38,54,38,0.35);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(176,191,176,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M20 4L4 20"/><path d="M4 4l16 16"/>
+            </svg>
+          </div>
+          <h3 class="subject-card-title">Mathematics</h3>
+          <p class="subject-card-desc">Calculus, Algebra, Coordinate Geometry, and Probability handled with precision. We train you to think mathematically — not just compute mechanically.</p>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.6rem;">
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Calculus</span>
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Algebra</span>
+            <span style="font-size:0.7rem;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(176,191,176,0.15);color:rgba(176,191,176,0.5);">Geometry</span>
+          </div>
+          <a href="material.html#mathematics" class="card-link">
+            Explore Mathematics <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ PHILOSOPHY ═══ -->
+  <section class="py-24" style="background:rgba(11,15,11,0.4);">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-5 gap-16 items-center">
+        <div class="md:col-span-3 reveal">
+          <div class="section-label mb-6">Our Philosophy</div>
+          <blockquote class="philosophy-quote mb-8">
+            "True mastery is not measured by how many problems you solve, but by how deeply you understand the one principle behind all of them."
+          </blockquote>
+          <p class="section-subtitle" style="max-width:100%;">We believe the best preparation is not frantic — it is thoughtful. Our platform provides a quiet, structured space where concentration and depth replace noise and shortcuts.</p>
+        </div>
+        <div class="md:col-span-2 reveal reveal-delay-2">
+          <div style="border:1px solid rgba(176,191,176,0.1);border-radius:12px;padding:2rem;background:rgba(26,33,26,0.4);">
+            <div style="margin-bottom:1.5rem;">
+              <div style="font-family:'Merriweather',serif;font-size:0.9rem;color:#f0ede6;margin-bottom:0.4rem;">Systematic Approach</div>
+              <div style="height:3px;background:linear-gradient(90deg,rgba(176,191,176,0.5),rgba(176,191,176,0.1));border-radius:2px;margin-bottom:0.4rem;"></div>
+              <div style="font-size:0.75rem;color:rgba(138,158,138,0.55);">Concept → Application → Mastery</div>
+            </div>
+            <div style="margin-bottom:1.5rem;">
+              <div style="font-family:'Merriweather',serif;font-size:0.9rem;color:#f0ede6;margin-bottom:0.4rem;">Curated Resources</div>
+              <div style="height:3px;background:linear-gradient(90deg,rgba(176,191,176,0.4),rgba(176,191,176,0.08));border-radius:2px;margin-bottom:0.4rem;"></div>
+              <div style="font-size:0.75rem;color:rgba(138,158,138,0.55);">Quality over volume, always</div>
+            </div>
+            <div>
+              <div style="font-family:'Merriweather',serif;font-size:0.9rem;color:#f0ede6;margin-bottom:0.4rem;">Student-Centered</div>
+              <div style="height:3px;background:linear-gradient(90deg,rgba(176,191,176,0.3),rgba(176,191,176,0.06));border-radius:2px;margin-bottom:0.4rem;"></div>
+              <div style="font-size:0.75rem;color:rgba(138,158,138,0.55);">Accessible from anywhere, anytime</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ CTA BANNER ═══ -->
+  <section class="py-24 px-6">
+    <div class="max-w-3xl mx-auto text-center reveal">
+      <div class="section-label mb-4">Ready to Begin?</div>
+      <h2 class="section-title mb-6">Your JEE Journey Starts with One Clear Step</h2>
+      <p class="section-subtitle mx-auto mb-10">Access premium study materials, structured notes, and a focused preparation environment — completely free for enrolled students.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="material.html" class="cta-btn" id="bottom-cta-primary">Browse Study Materials</a>
+        <a href="contact.html" class="cta-btn-ghost" id="bottom-cta-secondary">Register Your Interest</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ FOOTER ═══ -->
+  <footer class="py-14 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-10 mb-12">
+        <div>
+          <div style="font-family:'Merriweather',serif;font-size:1rem;font-weight:700;color:#f0ede6;margin-bottom:0.6rem;">EduHubBengal</div>
+          <p style="font-size:0.82rem;color:rgba(138,158,138,0.55);line-height:1.75;max-width:260px;">A premium, structured JEE preparation platform built for students in West Bengal who pursue excellence.</p>
+        </div>
+        <div>
+          <div style="font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(138,158,138,0.4);margin-bottom:1rem;">Navigation</div>
+          <div class="flex flex-col gap-2">
+            <a href="index.html" class="nav-link" style="font-size:0.82rem;">Home</a>
+            <a href="material.html" class="nav-link" style="font-size:0.82rem;">Study Material</a>
+            <a href="contact.html" class="nav-link" style="font-size:0.82rem;">Contact & Register</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(138,158,138,0.4);margin-bottom:1rem;">Subjects</div>
+          <div class="flex flex-col gap-2">
+            <a href="material.html#physics" class="nav-link" style="font-size:0.82rem;">Physics</a>
+            <a href="material.html#chemistry" class="nav-link" style="font-size:0.82rem;">Chemistry</a>
+            <a href="material.html#mathematics" class="nav-link" style="font-size:0.82rem;">Mathematics</a>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(176,191,176,0.07);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+        <div style="font-size:0.75rem;color:rgba(138,158,138,0.4);">© 2025 EduHubBengal. All rights reserved.</div>
+        <div style="font-size:0.75rem;color:rgba(138,158,138,0.35);">Crafted with care for JEE aspirants</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ═══════════════════════════════════
+    // 1. CUSTOM CURSOR
+    // ═══════════════════════════════════
+    const cursorOuter = document.getElementById('cursor-outer');
+    const cursorDot = document.getElementById('cursor-dot');
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let outerX = mouseX, outerY = mouseY;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+    });
+
+    // Smooth lagging outer cursor
+    function animateCursor() {
+      outerX += (mouseX - outerX) * 0.1;
+      outerY += (mouseY - outerY) * 0.1;
+      cursorOuter.style.left = outerX + 'px';
+      cursorOuter.style.top = outerY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // ═══════════════════════════════════
+    // 2. NAVBAR SCROLL BEHAVIOR
+    // ═══════════════════════════════════
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    // ═══════════════════════════════════
+    // 3. 3D MOUSE WEAVING HERO
+    // ═══════════════════════════════════
+    const heroBg = document.getElementById('hero-bg');
+    const heroContent = document.getElementById('hero-content');
+    const hero = document.getElementById('hero');
+
+    hero.addEventListener('mousemove', e => {
+      const rect = hero.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);   // -1 to 1
+      const dy = (e.clientY - cy) / (rect.height / 2);  // -1 to 1
+
+      // Background: subtle pan opposite direction (parallax)
+      heroBg.style.transform = `translate(${dx * -14}px, ${dy * -10}px)`;
+
+      // Content: gentle 3D tilt
+      const rotX = dy * -5;
+      const rotY = dx * 6;
+      heroContent.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      heroBg.style.transform = 'translate(0,0)';
+      heroContent.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+    });
+
+    // ═══════════════════════════════════
+    // 4. SCROLL REVEAL — INTERSECTION OBSERVER
+    // ═══════════════════════════════════
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // Trigger hero reveals immediately
+    document.querySelectorAll('#hero-content .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 200);
+    });
+  </script>
+</body>
+</html>

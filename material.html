@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Materials — EduHubBengal</title>
+  <meta name="description" content="Access premium, curated study notes and PDF resources for JEE Physics, Chemistry, and Mathematics preparation on EduHubBengal." />
+  <meta name="keywords" content="JEE study materials, physics notes PDF, chemistry PDF, mathematics notes JEE, EduHubBengal" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: { 950:'#0b0f0b', 900:'#121612', 800:'#1a211a', 700:'#222d22', 600:'#2e3d2e' },
+          },
+          fontFamily: {
+            serif: ['Merriweather', 'Georgia', 'serif'],
+            sans: ['Poppins', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: #121612; color: #d0dbd0; font-family: 'Poppins', sans-serif; cursor: none; overflow-x: hidden; }
+
+    /* ─── Cursor ─── */
+    #cursor-outer {
+      position: fixed; width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid rgba(176, 191, 176, 0.45);
+      background: rgba(176, 191, 176, 0.06);
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s, height 0.25s, background 0.25s;
+    }
+    #cursor-dot {
+      position: fixed; width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(208, 219, 208, 0.9);
+      pointer-events: none; z-index: 10000;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ─── Navbar ─── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.25rem 2rem;
+      background: rgba(18, 22, 18, 0.72);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      box-shadow: 0 1px 0 rgba(176, 191, 176, 0.08);
+    }
+
+    /* ─── Page Header ─── */
+    .page-header {
+      padding: 160px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(46, 61, 46, 0.35) 0%, transparent 65%);
+    }
+    .page-header-eyebrow {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(138, 158, 138, 0.6);
+      border: 1px solid rgba(176, 191, 176, 0.15);
+      padding: 0.35rem 1rem; border-radius: 2rem; margin-bottom: 1.5rem;
+    }
+    .page-header-title {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 700; color: #f0ede6;
+      letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1.2rem;
+    }
+    .page-header-sub {
+      font-size: 0.95rem; font-weight: 300;
+      color: rgba(176, 191, 176, 0.6);
+      max-width: 480px; margin: 0 auto; line-height: 1.8;
+    }
+
+    /* ─── Filter Tabs ─── */
+    .filter-bar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      justify-content: center; padding: 0 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .filter-btn {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em;
+      padding: 0.55rem 1.4rem; border-radius: 2rem; cursor: none;
+      border: 1px solid rgba(176, 191, 176, 0.18);
+      background: transparent; color: rgba(176, 191, 176, 0.55);
+      transition: all 0.3s ease;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(176, 191, 176, 0.12);
+      border-color: rgba(176, 191, 176, 0.4);
+      color: #d0dbd0;
+    }
+    .filter-btn.active {
+      background: rgba(176, 191, 176, 0.15);
+    }
+
+    /* ─── Search Bar ─── */
+    .search-wrap {
+      max-width: 440px; margin: 0 auto 3rem; padding: 0 1.5rem; position: relative;
+    }
+    .search-input {
+      width: 100%; background: rgba(26, 33, 26, 0.6);
+      border: 1px solid rgba(176, 191, 176, 0.14);
+      border-radius: 8px; padding: 0.85rem 1rem 0.85rem 2.8rem;
+      color: #d0dbd0; font-family: 'Poppins', sans-serif; font-size: 0.875rem;
+      outline: none; transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .search-input::placeholder { color: rgba(138, 158, 138, 0.4); }
+    .search-input:focus {
+      border-color: rgba(176, 191, 176, 0.38);
+      box-shadow: 0 0 0 3px rgba(176, 191, 176, 0.07);
+    }
+    .search-icon {
+      position: absolute; left: 2.4rem; top: 50%; transform: translateY(-50%);
+      color: rgba(138, 158, 138, 0.4);
+    }
+
+    /* ─── Section Label ─── */
+    .section-anchor {
+      scroll-margin-top: 100px;
+    }
+    .subject-section-title {
+      font-family: 'Merriweather', serif;
+      font-size: 1.6rem; font-weight: 700; color: #f0ede6;
+      letter-spacing: -0.02em; margin-bottom: 0.5rem;
+    }
+    .subject-count {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(138, 158, 138, 0.5); margin-bottom: 2rem; display: block;
+    }
+
+    /* ─── Resource Table / List ─── */
+    .resource-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .resource-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      background: rgba(26, 33, 26, 0.5);
+      border: 1px solid rgba(176, 191, 176, 0.07);
+      border-radius: 10px; padding: 1.1rem 1.4rem;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .resource-row::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; border-radius: 3px 0 0 3px;
+      background: linear-gradient(to bottom, rgba(176,191,176,0.3), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .resource-row:hover { background: rgba(34, 45, 34, 0.65); border-color: rgba(176,191,176,0.15); transform: translateX(4px); }
+    .resource-row:hover::before { opacity: 1; }
+
+    .resource-left { display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0; }
+    .resource-icon {
+      width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .resource-name {
+      font-size: 0.9rem; font-weight: 500; color: #e8e4dc;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .resource-meta {
+      font-size: 0.7rem; color: rgba(138,158,138,0.5); margin-top: 0.15rem;
+    }
+    .resource-badges { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+    .badge {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 20px;
+    }
+    .badge-chapter { background: rgba(46,94,46,0.2); color: rgba(138,200,138,0.7); border: 1px solid rgba(46,94,46,0.25); }
+    .badge-notes { background: rgba(60,80,60,0.2); color: rgba(160,190,160,0.7); border: 1px solid rgba(60,80,60,0.25); }
+    .badge-pyq { background: rgba(80,60,40,0.25); color: rgba(200,170,120,0.7); border: 1px solid rgba(80,60,40,0.3); }
+
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
+      color: rgba(176,191,176,0.65); text-decoration: none; cursor: none;
+      border: 1px solid rgba(176,191,176,0.18);
+      padding: 0.5rem 1rem; border-radius: 6px;
+      background: rgba(176,191,176,0.05);
+      transition: all 0.3s ease; flex-shrink: 0; white-space: nowrap;
+    }
+    .download-btn:hover {
+      background: rgba(176,191,176,0.15);
+      border-color: rgba(176,191,176,0.4);
+      color: #d0dbd0;
+    }
+
+    /* ─── Divider ─── */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(176,191,176,0.1), transparent);
+      margin: 4rem 0;
+    }
+
+    /* ─── Reveal ─── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+
+    /* ─── Nav Links ─── */
+    .nav-link { position: relative; font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em; color: rgba(176,191,176,0.65); text-decoration: none; transition: color 0.3s; padding-bottom: 2px; }
+    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: rgba(208,219,208,0.6); transition: width 0.35s; }
+    .nav-link:hover { color: #d0dbd0; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #d0dbd0; }
+    .nav-link.active::after { width: 100%; }
+    .cta-btn { display: inline-block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; color: #121612; background: #b0bfb0; border: none; border-radius: 4px; cursor: none; text-decoration: none; transition: background 0.3s, padding 0.35s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .cta-btn:hover { background: #d0dbd0; }
+
+    /* ─── Empty State ─── */
+    #no-results {
+      display: none; text-align: center; padding: 4rem 1rem;
+      color: rgba(138,158,138,0.4); font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor-outer" aria-hidden="true"></div>
+  <div id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- ═══════════════ NAVBAR ═══ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.75rem;">
+        <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#2e3d2e,#4a6a4a);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Merriweather',serif;font-size:0.85rem;font-weight:700;color:#d0dbd0;">E</span>
+        </div>
+        <div>
+          <span style="font-family:'Merriweather',serif;font-size:1rem;font-weight:700;color:#f0ede6;display:block;line-height:1;">EduHubBengal</span>
+          <span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(138,158,138,0.55);">JEE Preparation</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="material.html" class="nav-link active">Study Material</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <a href="contact.html" class="hidden md:inline-block cta-btn" style="padding:0.6rem 1.5rem;" id="nav-enroll-btn">Enroll Now</a>
+      <button id="mobile-menu-btn" aria-label="Open menu" class="md:hidden flex flex-col gap-1.5 p-2" style="background:none;border:none;cursor:none;">
+        <span class="block w-6 h-px bg-stone-400"></span>
+        <span class="block w-4 h-px bg-stone-400"></span>
+        <span class="block w-6 h-px bg-stone-400"></span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-6 pt-4 pb-6 flex flex-col gap-4">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="material.html" class="nav-link active">Study Material</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ PAGE HEADER ═══ -->
+  <header class="page-header" role="banner">
+    <div class="relative z-10 px-6">
+      <div class="page-header-eyebrow reveal">Premium Library — JEE Resources</div>
+      <h1 class="page-header-title reveal" style="transition-delay:0.1s;">The Study Material Vault</h1>
+      <p class="page-header-sub reveal" style="transition-delay:0.2s;">Carefully curated notes, chapter PDFs, and previous year question sets for Physics, Chemistry, and Mathematics.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════════ CONTROLS ═══ -->
+  <div class="max-w-5xl mx-auto px-6">
+    <!-- Search -->
+    <div class="search-wrap">
+      <span class="search-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </span>
+      <input
+        type="search"
+        id="search-input"
+        class="search-input"
+        placeholder="Search chapters, topics…"
+        aria-label="Search study materials"
+      />
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-bar" role="tablist" aria-label="Filter by subject">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" id="filter-all">All Subjects</button>
+      <button class="filter-btn" data-filter="physics" role="tab" aria-selected="false" id="filter-physics">Physics</button>
+      <button class="filter-btn" data-filter="chemistry" role="tab" aria-selected="false" id="filter-chemistry">Chemistry</button>
+      <button class="filter-btn" data-filter="mathematics" role="tab" aria-selected="false" id="filter-mathematics">Mathematics</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MAIN CONTENT ═══ -->
+  <main class="max-w-5xl mx-auto px-6 pb-28" id="library-main">
+
+    <!-- ─── PHYSICS ─────────────────────────── -->
+    <section id="physics" class="section-anchor subject-section" data-subject="physics">
+      <div class="reveal">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem;">
+          <div style="width:40px;height:40px;border-radius:8px;background:rgba(46,94,46,0.25);display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(176,191,176,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
+              <line x1="4.22" y1="4.22" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.78" y2="19.78"/>
+              <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
+            </svg>
+          </div>
+          <h2 class="subject-section-title">Physics</h2>
+        </div>
+        <span class="subject-count">12 Resources Available</span>
+      </div>
+
+      <div class="resource-list" id="physics-list">
+
+        <div class="resource-row reveal" data-name="Mechanics Part 1 — Kinematics &amp; Newton's Laws">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(46,94,46,0.2);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,191,138,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Mechanics Part 1 — Kinematics &amp; Newton's Laws</div>
+              <div class="resource-meta">Chapter 1 · 48 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/physics-ch1.pdf" class="download-btn" id="dl-phy-1" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-1" data-name="Mechanics Part 2 — Work Energy Power &amp; Rotational Motion">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(46,94,46,0.2);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,191,138,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Mechanics Part 2 — Work, Energy &amp; Rotational Motion</div>
+              <div class="resource-meta">Chapter 2 · 62 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/physics-ch2.pdf" class="download-btn" id="dl-phy-2" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-2" data-name="Thermodynamics &amp; Kinetic Theory of Gases">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(46,94,46,0.2);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,191,138,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Thermodynamics &amp; Kinetic Theory of Gases</div>
+              <div class="resource-meta">Chapter 3 · 55 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span></div>
+            <a href="files/physics-ch3.pdf" class="download-btn" id="dl-phy-3" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal" data-name="Electrostatics and Electric Fields">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(46,94,46,0.2);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,191,138,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Electrostatics and Electric Fields</div>
+              <div class="resource-meta">Chapter 4 · 70 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/physics-ch4.pdf" class="download-btn" id="dl-phy-4" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-1" data-name="Magnetism Current Electricity and Electromagnetic Induction">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(46,94,46,0.2);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,191,138,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Magnetism, Current Electricity &amp; EMI</div>
+              <div class="resource-meta">Chapter 5 · 80 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span></div>
+            <a href="files/physics-ch5.pdf" class="download-btn" id="dl-phy-5" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-2" data-name="Optics Ray Optics Wave Optics PYQ">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(46,94,46,0.2);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,191,138,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Optics — Ray Optics &amp; Wave Optics (PYQ Set)</div>
+              <div class="resource-meta">Previous Years · 34 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-pyq">PYQ</span></div>
+            <a href="files/physics-optics-pyq.pdf" class="download-btn" id="dl-phy-6" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ─── CHEMISTRY ─────────────────────────── -->
+    <section id="chemistry" class="section-anchor subject-section" data-subject="chemistry">
+      <div class="reveal">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem;">
+          <div style="width:40px;height:40px;border-radius:8px;background:rgba(30,60,46,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(176,191,176,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3h6v11l3.5 6.5a1 1 0 01-.86 1.5H6.36a1 1 0 01-.86-1.5L9 14V3z"/>
+              <line x1="9" y1="8" x2="15" y2="8"/>
+            </svg>
+          </div>
+          <h2 class="subject-section-title">Chemistry</h2>
+        </div>
+        <span class="subject-count">13 Resources Available</span>
+      </div>
+
+      <div class="resource-list" id="chemistry-list">
+
+        <div class="resource-row reveal" data-name="Organic Chemistry Basics — General Organic Chemistry">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(30,60,46,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,180,155,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Organic Chemistry Basics — General Organic Chemistry</div>
+              <div class="resource-meta">Chapter 1 · 58 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/chemistry-organic-ch1.pdf" class="download-btn" id="dl-chem-1" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-1" data-name="Hydrocarbons Alkanes Alkenes Alkynes">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(30,60,46,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,180,155,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Hydrocarbons — Alkanes, Alkenes &amp; Alkynes</div>
+              <div class="resource-meta">Chapter 2 · 64 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span></div>
+            <a href="files/chemistry-organic-ch2.pdf" class="download-btn" id="dl-chem-2" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-2" data-name="Reaction Mechanisms SN1 SN2 E1 E2 Elimination">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(30,60,46,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,180,155,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Reaction Mechanisms — SN1, SN2, E1 &amp; E2</div>
+              <div class="resource-meta">Chapter 3 · 52 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/chemistry-organic-ch3.pdf" class="download-btn" id="dl-chem-3" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal" data-name="Chemical Bonding and Molecular Structure VSEPR">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(30,60,46,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,180,155,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Chemical Bonding &amp; Molecular Structure (VSEPR)</div>
+              <div class="resource-meta">Chapter 4 · 46 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span></div>
+            <a href="files/chemistry-inorganic-ch1.pdf" class="download-btn" id="dl-chem-4" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-1" data-name="Chemical Equilibrium and Ionic Equilibrium pH Buffers">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(30,60,46,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,180,155,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Chemical Equilibrium &amp; Ionic Equilibrium (pH, Buffers)</div>
+              <div class="resource-meta">Chapter 5 · 60 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/chemistry-physical-ch1.pdf" class="download-btn" id="dl-chem-5" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-2" data-name="Chemistry PYQ Compendium 2019-2024">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(30,60,46,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(138,180,155,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Chemistry PYQ Compendium — 2019 to 2024</div>
+              <div class="resource-meta">Previous Years · 120 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-pyq">PYQ</span></div>
+            <a href="files/chemistry-pyq-compendium.pdf" class="download-btn" id="dl-chem-6" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ─── MATHEMATICS ─────────────────────────── -->
+    <section id="mathematics" class="section-anchor subject-section" data-subject="mathematics">
+      <div class="reveal">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem;">
+          <div style="width:40px;height:40px;border-radius:8px;background:rgba(38,54,38,0.35);display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(176,191,176,0.75)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M20 4L4 20"/>
+            </svg>
+          </div>
+          <h2 class="subject-section-title">Mathematics</h2>
+        </div>
+        <span class="subject-count">14 Resources Available</span>
+      </div>
+
+      <div class="resource-list" id="mathematics-list">
+
+        <div class="resource-row reveal" data-name="Differential Calculus Limits Continuity Differentiability">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(38,54,38,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(160,191,160,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Differential Calculus — Limits, Continuity &amp; Differentiability</div>
+              <div class="resource-meta">Chapter 1 · 72 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/math-calculus-ch1.pdf" class="download-btn" id="dl-math-1" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-1" data-name="Integral Calculus Definite Indefinite Integration">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(38,54,38,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(160,191,160,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Integral Calculus — Definite &amp; Indefinite Integration</div>
+              <div class="resource-meta">Chapter 2 · 88 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span></div>
+            <a href="files/math-calculus-ch2.pdf" class="download-btn" id="dl-math-2" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-2" data-name="Coordinate Geometry Straight Lines Circles Conics">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(38,54,38,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(160,191,160,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Coordinate Geometry — Straight Lines, Circles &amp; Conics</div>
+              <div class="resource-meta">Chapter 3 · 76 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/math-geometry-ch1.pdf" class="download-btn" id="dl-math-3" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal" data-name="Algebra Complex Numbers Quadratic Sequences Series">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(38,54,38,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(160,191,160,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Algebra — Complex Numbers, Quadratic &amp; Series</div>
+              <div class="resource-meta">Chapter 4 · 65 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span></div>
+            <a href="files/math-algebra-ch1.pdf" class="download-btn" id="dl-math-4" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-1" data-name="Probability Permutations Combinations Statistics">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(38,54,38,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(160,191,160,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Probability, Permutations &amp; Combinations</div>
+              <div class="resource-meta">Chapter 5 · 50 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-chapter">Chapter</span><span class="badge badge-notes">Theory</span></div>
+            <a href="files/math-probability-ch1.pdf" class="download-btn" id="dl-math-5" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="resource-row reveal reveal-delay-2" data-name="Mathematics Full PYQ Set JEE Mains Advanced 2020-2024">
+          <div class="resource-left">
+            <div class="resource-icon" style="background:rgba(38,54,38,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(160,191,160,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="resource-name">Mathematics Full PYQ Set — JEE Mains &amp; Advanced 2020–2024</div>
+              <div class="resource-meta">Previous Years · 140 pages · PDF</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <div class="resource-badges"><span class="badge badge-pyq">PYQ</span></div>
+            <a href="files/math-pyq-full.pdf" class="download-btn" id="dl-math-6" download>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- No results state -->
+    <div id="no-results">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 1rem;display:block;color:rgba(138,158,138,0.3);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p>No resources found matching your search.</p>
+      <p style="margin-top:0.3rem;font-size:0.8rem;color:rgba(138,158,138,0.35);">Try a different keyword or clear the search.</p>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════ FOOTER ═══ -->
+  <footer style="border-top:1px solid rgba(176,191,176,0.07);background:#0b0f0b;padding:3.5rem 1.5rem;">
+    <div class="max-w-6xl mx-auto" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div style="font-family:'Merriweather',serif;font-size:1rem;font-weight:700;color:#f0ede6;">EduHubBengal</div>
+      <div style="display:flex;gap:2rem;">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="material.html" class="nav-link active">Materials</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div style="font-size:0.75rem;color:rgba(138,158,138,0.4);">© 2025 EduHubBengal</div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Cursor ───
+    const cursorOuter = document.getElementById('cursor-outer');
+    const cursorDot = document.getElementById('cursor-dot');
+    let mx = window.innerWidth/2, my = window.innerHeight/2, ox = mx, oy = my;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursorDot.style.left = mx+'px'; cursorDot.style.top = my+'px';
+    });
+    (function animCursor() {
+      ox += (mx-ox)*0.1; oy += (my-oy)*0.1;
+      cursorOuter.style.left = ox+'px'; cursorOuter.style.top = oy+'px';
+      requestAnimationFrame(animCursor);
+    })();
+
+    // ─── Mobile menu ───
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // ─── Scroll Reveal ───
+    const reveals = document.querySelectorAll('.reveal');
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => revObs.observe(el));
+    // Trigger header reveals
+    document.querySelectorAll('.page-header .reveal').forEach((el,i) => setTimeout(() => el.classList.add('visible'), 150+i*80));
+
+    // ─── Filter Tabs ───
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+        const filter = btn.dataset.filter;
+        filterResources(filter, document.getElementById('search-input').value);
+      });
+    });
+
+    // ─── Search ───
+    document.getElementById('search-input').addEventListener('input', e => {
+      const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+      filterResources(activeFilter, e.target.value);
+    });
+
+    function filterResources(subject, query) {
+      const q = query.trim().toLowerCase();
+      const sections = document.querySelectorAll('.subject-section');
+      const dividers = document.querySelectorAll('.section-divider');
+      let anyVisible = false;
+
+      sections.forEach(section => {
+        const sec = section.dataset.subject;
+        const subjectMatch = subject === 'all' || sec === subject;
+        const rows = section.querySelectorAll('.resource-row');
+        let rowVisible = 0;
+
+        rows.forEach(row => {
+          const name = row.dataset.name.toLowerCase();
+          const nameMatch = !q || name.includes(q);
+          const show = subjectMatch && nameMatch;
+          row.style.display = show ? '' : 'none';
+          if (show) rowVisible++;
+        });
+
+        const sectionVisible = subjectMatch && rowVisible > 0;
+        section.style.display = sectionVisible ? '' : 'none';
+        if (sectionVisible) anyVisible = true;
+      });
+
+      // Show/hide dividers smartly
+      dividers.forEach(d => d.style.display = anyVisible ? '' : 'none');
+
+      document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
